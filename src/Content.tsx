@@ -5,8 +5,8 @@ import createEngine, {
   PortModelAlignment,
 } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { TrayWidget } from "./Components/TrayWidget";
-import { TrayItemWidget } from "./Components/TrayItemWidget";
+import { TrayWidget } from "./Components/Tray/TrayWidget";
+import { TrayItemWidget } from "./Components/Tray/TrayItemWidget";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
 import { IN, OUT, CONNECTION, CUSTOM, colour } from "./Types";

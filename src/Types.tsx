@@ -1,7 +1,7 @@
 export const IN = "In";
 export const OUT = "Out";
 export const CONNECTION = "Connection";
-export const CUSTOM = "custom";
+export const CUSTOM = "Custom";
 
 export const colour = {
   in: "rgb(192,255,0)",
