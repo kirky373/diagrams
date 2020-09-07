@@ -46,7 +46,7 @@ export class CustomNodeWidget extends React.Component<CustomNodeWidgetProps> {
           </g>
           <g id="Layer_2">
             <polygon fill="mediumpurple" stroke="${
-              this.props.node.isSelected() ? "white" : "#000000"
+              this.props.node.isSelected() ? "black" : "mediumpurple"
             }" stroke-width="3" stroke-miterlimit="10" points="10,` +
               this.props.size / 2 +
               ` ` +

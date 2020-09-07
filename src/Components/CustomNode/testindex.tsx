@@ -3,7 +3,7 @@ import createEngine, {
   DiagramModel,
   PortModelAlignment,
 } from "@projectstorm/react-diagrams";
-import * as React from "react";
+import React from "react";
 // import the custom models
 import { CustomNodeModel } from "./CustomNodeModel";
 import { CustomNodeFactory } from "./CustomNodeFactory";
@@ -59,7 +59,7 @@ export default () => {
   var link4 = port5.link(node2.getPort(PortModelAlignment.BOTTOM));
 
   //4) add the models to the root graph
-  model.addAll(node1, node2, node3, link1, link2, node4, link3, link4, node5);
+  model.addAll(node1, node2, node3, node4, node5, link1, link2, link3, link4);
 
   //5) load model into engine
   engine.setModel(model);

@@ -1,14 +1,20 @@
 import React from "react";
 import "./App.css";
-import createEngine, { DefaultNodeModel } from "@projectstorm/react-diagrams";
+import createEngine, {
+  DefaultNodeModel,
+  PortModelAlignment,
+} from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { TrayWidget } from "./Components/TrayWidget";
 import { TrayItemWidget } from "./Components/TrayItemWidget";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
-import { IN, OUT, CONNECTION } from "./Types";
+import { IN, OUT, CONNECTION, CUSTOM } from "./Types";
 
-import CustomTest from "./Components/CustomNode/testindex";
+import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
+import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
+import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
+import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
 
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 50vh;
@@ -62,6 +68,15 @@ const engine = setEngine();
 
 function setEngine() {
   let engine = createEngine();
+  engine
+    .getPortFactories()
+    .registerFactory(
+      new SimplePortFactory(
+        CUSTOM,
+        (config) => new CustomPortModel(PortModelAlignment.LEFT)
+      )
+    );
+  engine.getNodeFactories().registerFactory(new CustomNodeFactory());
   engine.setModel(model);
   return engine;
 }
@@ -83,29 +98,38 @@ export default class diagram extends React.Component {
                 );
                 let x = event.clientX!;
                 let y = event.clientY!;
-                console.log(x);
                 var node: DefaultNodeModel;
-                if (data.type === IN) {
-                  node = new DefaultNodeModel("In node", "rgb(192,255,0)");
-                  node.addInPort(IN);
-                } else if (data.type === OUT) {
-                  node = new DefaultNodeModel("Out node", "rgb(0,192,255)");
-                  node.addOutPort(OUT);
-                } else if (data.type === CONNECTION) {
-                  node = new DefaultNodeModel(
-                    "Connection node",
-                    "rgb(255,192,0)"
-                  );
-                  node.addInPort(IN);
-                  node.addOutPort(OUT);
-                } else {
-                  node = new DefaultNodeModel("Error node", "rgb(255,0,0)");
+                var customNode: CustomNodeModel;
+                //TODO: Get this working to add nodes to the model where user drops them
+                switch (data.type) {
+                  case IN:
+                    node = new DefaultNodeModel("In node", "rgb(192,255,0)");
+                    node.addInPort(IN);
+                    node.setPosition(x, y);
+                    break;
+                  case OUT:
+                    node = new DefaultNodeModel("Out node", "rgb(0,192,255)");
+                    node.addOutPort(OUT);
+                    node.setPosition(x, y);
+                    break;
+                  case CONNECTION:
+                    node = new DefaultNodeModel(
+                      "Connection node",
+                      "rgb(255,192,0)"
+                    );
+                    node.addInPort(IN);
+                    node.addOutPort(OUT);
+                    node.setPosition(x, y);
+                    break;
+                  case CUSTOM:
+                    customNode = new CustomNodeModel();
+                    customNode.setPosition(x, y);
+                    break;
+                  default:
+                    node = new DefaultNodeModel("Error node", "rgb(255,0,0)");
                 }
 
-                //TODO: Get this working to add nodes to the model where user drops them
-                node.setPosition(x, y);
-
-                model.addAll(node);
+                model.addAll(node, customNode);
                 this.forceUpdate();
               })
             }
@@ -119,9 +143,6 @@ export default class diagram extends React.Component {
             </button>
             <GridContainer color="#5f5f5f" background="white">
               <CanvasWidget engine={engine} />
-            </GridContainer>
-            <GridContainer color="#5f5f5f" background="white">
-              <CustomTest />
             </GridContainer>
           </Layer>
           <TrayWidget>
@@ -139,6 +160,11 @@ export default class diagram extends React.Component {
               model={{ type: CONNECTION }}
               name="Conenction Node"
               color="rgb(255,192,0)"
+            />
+            <TrayItemWidget
+              model={{ type: CUSTOM }}
+              name="Custom Node"
+              color="mediumpurple"
             />
           </TrayWidget>
         </Content>
