@@ -10,7 +10,7 @@ import { CustomNodeFactory } from "./CustomNodeFactory";
 import { SimplePortFactory } from "./SimplePortFactory";
 import { CustomPortModel } from "./CustomPortModel";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { In, Out } from "../../Types";
+import { IN, OUT } from "../../Types";
 export default () => {
   //1) setup the diagram engine
   var engine = createEngine();
@@ -31,7 +31,7 @@ export default () => {
 
   //3-A) create a default node
   var node1 = new DefaultNodeModel("Node 1", "rgb(0,192,255)");
-  var port1 = node1.addOutPort(Out);
+  var port1 = node1.addOutPort(OUT);
   node1.setPosition(100, 200);
 
   //3-B) create our new custom node
@@ -39,7 +39,7 @@ export default () => {
   node2.setPosition(250, 108);
 
   var node3 = new DefaultNodeModel("Node 3", "red");
-  var port3 = node3.addInPort(In);
+  var port3 = node3.addInPort(IN);
   node3.setPosition(500, 100);
 
   //3-C) link the 2 nodes together
@@ -47,13 +47,13 @@ export default () => {
   var link2 = port3.link(node2.getPort(PortModelAlignment.RIGHT));
 
   var node4 = new DefaultNodeModel("Node 4", "rgb(0,192,255)");
-  var port4 = node4.addOutPort(Out);
+  var port4 = node4.addOutPort(OUT);
   node4.setPosition(200, 10);
 
   var link3 = port4.link(node2.getPort(PortModelAlignment.TOP));
 
   var node5 = new DefaultNodeModel("Node 5", "mediumpurple");
-  var port5 = node5.addInPort(In);
+  var port5 = node5.addInPort(IN);
   node5.setPosition(400, 300);
 
   var link4 = port5.link(node2.getPort(PortModelAlignment.BOTTOM));

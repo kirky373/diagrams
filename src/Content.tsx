@@ -6,7 +6,7 @@ import { TrayWidget } from "./Components/TrayWidget";
 import { TrayItemWidget } from "./Components/TrayItemWidget";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
-import { In, Out, Connection } from "./Types";
+import { IN, OUT, CONNECTION } from "./Types";
 
 import CustomTest from "./Components/CustomNode/testindex";
 
@@ -85,19 +85,19 @@ export default class diagram extends React.Component {
                 let y = event.clientY!;
                 console.log(x);
                 var node: DefaultNodeModel;
-                if (data.type === In) {
+                if (data.type === IN) {
                   node = new DefaultNodeModel("In node", "rgb(192,255,0)");
-                  node.addInPort(In);
-                } else if (data.type === Out) {
+                  node.addInPort(IN);
+                } else if (data.type === OUT) {
                   node = new DefaultNodeModel("Out node", "rgb(0,192,255)");
-                  node.addOutPort(Out);
-                } else if (data.type === Connection) {
+                  node.addOutPort(OUT);
+                } else if (data.type === CONNECTION) {
                   node = new DefaultNodeModel(
                     "Connection node",
                     "rgb(255,192,0)"
                   );
-                  node.addInPort(In);
-                  node.addOutPort(Out);
+                  node.addInPort(IN);
+                  node.addOutPort(OUT);
                 } else {
                   node = new DefaultNodeModel("Error node", "rgb(255,0,0)");
                 }
@@ -126,17 +126,17 @@ export default class diagram extends React.Component {
           </Layer>
           <TrayWidget>
             <TrayItemWidget
-              model={{ type: In }}
+              model={{ type: IN }}
               name="In Node"
               color="rgb(192,255,0)"
             />
             <TrayItemWidget
-              model={{ type: Out }}
+              model={{ type: OUT }}
               name="Out Node"
               color="rgb(0,192,255)"
             />
             <TrayItemWidget
-              model={{ type: Connection }}
+              model={{ type: CONNECTION }}
               name="Conenction Node"
               color="rgb(255,192,0)"
             />

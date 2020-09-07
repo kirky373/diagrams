@@ -1,3 +1,4 @@
-export const In = "In";
-export const Out = "Out";
-export const Connection = "Connection";
+export const IN = "In";
+export const OUT = "Out";
+export const CONNECTION = "Connection";
+export const CUSTOM = "custom";

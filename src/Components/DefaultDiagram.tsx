@@ -1,5 +1,5 @@
 import { DiagramModel, DefaultNodeModel } from "@projectstorm/react-diagrams";
-import { In, Out } from "../Types";
+import { IN, OUT } from "../Types";
 
 const model = DefaultDiagram();
 function DefaultDiagram() {
@@ -9,7 +9,7 @@ function DefaultDiagram() {
     color: "rgb(0,192,255)",
   });
   node1.setPosition(100, 200);
-  let port1 = node1.addOutPort(Out);
+  let port1 = node1.addOutPort(OUT);
 
   //node 2
   const node2 = new DefaultNodeModel({
@@ -17,8 +17,8 @@ function DefaultDiagram() {
     color: "rgb(255,192,0)",
   });
   node2.setPosition(225, 100);
-  let port2 = node2.addInPort(In);
-  let port3 = node2.addOutPort(Out);
+  let port2 = node2.addInPort(IN);
+  let port3 = node2.addOutPort(OUT);
 
   //node 3
   const node3 = new DefaultNodeModel({
@@ -26,7 +26,7 @@ function DefaultDiagram() {
     color: "rgb(192,255,0)",
   });
   node3.setPosition(400, 200);
-  let port4 = node3.addInPort(In);
+  let port4 = node3.addInPort(IN);
 
   //link them and add a label to the link
   const link = port1.link(port2);
@@ -52,12 +52,12 @@ function DefaultDiagram() {
 function generateNodes(model: DiagramModel, offsetX: number, offsetY: number) {
   //create a default node
   var node1 = new DefaultNodeModel("Test out node", "rgb(0,192,255)");
-  var port1 = node1.addOutPort(Out);
+  var port1 = node1.addOutPort(OUT);
   node1.setPosition(100 + offsetX, 100 + offsetY);
 
   //create another default node
   var node2 = new DefaultNodeModel("Test in node", "rgb(192,255,0)");
-  var port2 = node2.addInPort(In);
+  var port2 = node2.addInPort(IN);
   node2.setPosition(200 + offsetX, 100 + offsetY);
 
   //link the 2 nodes together
