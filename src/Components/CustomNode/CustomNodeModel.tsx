@@ -4,6 +4,7 @@ import {
   PortModelAlignment,
 } from "@projectstorm/react-diagrams";
 import { CustomPortModel } from "./CustomPortModel";
+import { CUSTOM } from "../../Types";
 
 export interface CustomNodeModelGenerics {
   PORT: CustomPortModel;
@@ -14,7 +15,7 @@ export class CustomNodeModel extends NodeModel<
 > {
   constructor() {
     super({
-      type: "custom",
+      type: CUSTOM,
     });
     this.addPort(new CustomPortModel(PortModelAlignment.TOP));
     this.addPort(new CustomPortModel(PortModelAlignment.LEFT));

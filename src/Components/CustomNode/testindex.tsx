@@ -10,7 +10,7 @@ import { CustomNodeFactory } from "./CustomNodeFactory";
 import { SimplePortFactory } from "./SimplePortFactory";
 import { CustomPortModel } from "./CustomPortModel";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { IN, OUT } from "../../Types";
+import { IN, OUT, CUSTOM } from "../../Types";
 export default () => {
   //1) setup the diagram engine
   var engine = createEngine();
@@ -20,7 +20,7 @@ export default () => {
     .getPortFactories()
     .registerFactory(
       new SimplePortFactory(
-        "custom",
+        CUSTOM,
         (config) => new CustomPortModel(PortModelAlignment.LEFT)
       )
     );
