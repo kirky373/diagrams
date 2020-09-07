@@ -1,12 +1,12 @@
 import { DiagramModel, DefaultNodeModel } from "@projectstorm/react-diagrams";
-import { IN, OUT } from "../Types";
+import { IN, OUT, colour } from "../Types";
 
 const model = DefaultDiagram();
 function DefaultDiagram() {
   //node 1
   const node1 = new DefaultNodeModel({
     name: "Out node",
-    color: "rgb(0,192,255)",
+    color: colour.out,
   });
   node1.setPosition(100, 200);
   let port1 = node1.addOutPort(OUT);
@@ -14,7 +14,7 @@ function DefaultDiagram() {
   //node 2
   const node2 = new DefaultNodeModel({
     name: "Connection node",
-    color: "rgb(255,192,0)",
+    color: colour.connection,
   });
   node2.setPosition(225, 100);
   let port2 = node2.addInPort(IN);
@@ -23,7 +23,7 @@ function DefaultDiagram() {
   //node 3
   const node3 = new DefaultNodeModel({
     name: "In node",
-    color: "rgb(192,255,0)",
+    color: colour.in,
   });
   node3.setPosition(400, 200);
   let port4 = node3.addInPort(IN);
@@ -51,12 +51,12 @@ function DefaultDiagram() {
 
 function generateNodes(model: DiagramModel, offsetX: number, offsetY: number) {
   //create a default node
-  var node1 = new DefaultNodeModel("Test out node", "rgb(0,192,255)");
+  var node1 = new DefaultNodeModel("Test out node", colour.out);
   var port1 = node1.addOutPort(OUT);
   node1.setPosition(100 + offsetX, 100 + offsetY);
 
   //create another default node
-  var node2 = new DefaultNodeModel("Test in node", "rgb(192,255,0)");
+  var node2 = new DefaultNodeModel("Test in node", colour.in);
   var port2 = node2.addInPort(IN);
   node2.setPosition(200 + offsetX, 100 + offsetY);
 

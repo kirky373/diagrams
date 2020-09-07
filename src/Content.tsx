@@ -9,7 +9,7 @@ import { TrayWidget } from "./Components/TrayWidget";
 import { TrayItemWidget } from "./Components/TrayItemWidget";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
-import { IN, OUT, CONNECTION, CUSTOM } from "./Types";
+import { IN, OUT, CONNECTION, CUSTOM, colour } from "./Types";
 
 import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
@@ -103,19 +103,19 @@ export default class diagram extends React.Component {
                 //TODO: Get this working to add nodes to the model where user drops them
                 switch (data.type) {
                   case IN:
-                    node = new DefaultNodeModel("In node", "rgb(192,255,0)");
+                    node = new DefaultNodeModel("In node", colour.in);
                     node.addInPort(IN);
                     node.setPosition(x, y);
                     break;
                   case OUT:
-                    node = new DefaultNodeModel("Out node", "rgb(0,192,255)");
+                    node = new DefaultNodeModel("Out node", colour.out);
                     node.addOutPort(OUT);
                     node.setPosition(x, y);
                     break;
                   case CONNECTION:
                     node = new DefaultNodeModel(
                       "Connection node",
-                      "rgb(255,192,0)"
+                      colour.connection
                     );
                     node.addInPort(IN);
                     node.addOutPort(OUT);
@@ -126,7 +126,7 @@ export default class diagram extends React.Component {
                     customNode.setPosition(x, y);
                     break;
                   default:
-                    node = new DefaultNodeModel("Error node", "rgb(255,0,0)");
+                    node = new DefaultNodeModel("Error node", colour.custom);
                 }
 
                 model.addAll(node, customNode);
@@ -149,22 +149,22 @@ export default class diagram extends React.Component {
             <TrayItemWidget
               model={{ type: IN }}
               name="In Node"
-              color="rgb(192,255,0)"
+              color={colour.in}
             />
             <TrayItemWidget
               model={{ type: OUT }}
               name="Out Node"
-              color="rgb(0,192,255)"
+              color={colour.out}
             />
             <TrayItemWidget
               model={{ type: CONNECTION }}
               name="Conenction Node"
-              color="rgb(255,192,0)"
+              color={colour.connection}
             />
             <TrayItemWidget
               model={{ type: CUSTOM }}
               name="Custom Node"
-              color="mediumpurple"
+              color={colour.custom}
             />
           </TrayWidget>
         </Content>

@@ -6,6 +6,7 @@ import {
   PortWidget,
 } from "@projectstorm/react-diagrams";
 import styled from "@emotion/styled";
+import { colour } from "../../Types";
 
 export interface CustomNodeWidgetProps {
   node: CustomNodeModel;
@@ -45,9 +46,9 @@ export class CustomNodeWidget extends React.Component<CustomNodeWidgetProps> {
           <g id="Layer_1">
           </g>
           <g id="Layer_2">
-            <polygon fill="mediumpurple" stroke="${
-              this.props.node.isSelected() ? "black" : "mediumpurple"
-            }" stroke-width="3" stroke-miterlimit="10" points="10,` +
+            <polygon fill=${colour.custom} stroke="${
+                this.props.node.isSelected() ? "black" : "mediumpurple"
+              }" stroke-width="3" stroke-miterlimit="10" points="10,` +
               this.props.size / 2 +
               ` ` +
               this.props.size / 2 +
