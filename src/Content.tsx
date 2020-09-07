@@ -8,10 +8,14 @@ import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
 import { In, Out, Connection } from "./Types";
 
+import CustomTest from "./Components/CustomNode/testindex";
+
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 50vh;
   background-color: ${(p) => p.background};
   background-size: 50px 50px;
+  margin: 5px;
+  border-style: Solid;
   display: flex;
   > * {
     height: 100%;
@@ -115,6 +119,9 @@ export default class diagram extends React.Component {
             </button>
             <GridContainer color="#5f5f5f" background="white">
               <CanvasWidget engine={engine} />
+            </GridContainer>
+            <GridContainer color="#5f5f5f" background="white">
+              <CustomTest />
             </GridContainer>
           </Layer>
           <TrayWidget>
