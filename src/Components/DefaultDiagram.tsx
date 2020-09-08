@@ -21,7 +21,7 @@ function DefaultDiagram() {
     name: "Connection node",
     color: colour.connection,
   });
-  node2.setPosition(225, 100);
+  node2.setPosition(225, 50);
   let port2 = node2.addInPort(IN);
   let port3 = node2.addOutPort(OUT);
 

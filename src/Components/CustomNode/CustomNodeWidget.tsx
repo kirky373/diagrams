@@ -58,8 +58,6 @@ export class CustomNodeWidget extends React.Component<CustomNodeWidgetProps> {
               this.props.size / 2 +
               ` ` +
               this.props.size / 2 +
-              `,` +
-              (this.props.size - 10) +
               ` "/>
           </g>
         `,
@@ -94,17 +92,6 @@ export class CustomNodeWidget extends React.Component<CustomNodeWidgetProps> {
             position: "absolute",
           }}
           port={this.props.node.getPort(PortModelAlignment.RIGHT)}
-          engine={this.props.engine}
-        >
-          <Port />
-        </PortWidget>
-        <PortWidget
-          style={{
-            left: this.props.size / 2 - 8,
-            top: this.props.size - 8,
-            position: "absolute",
-          }}
-          port={this.props.node.getPort(PortModelAlignment.BOTTOM)}
           engine={this.props.engine}
         >
           <Port />

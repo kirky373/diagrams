@@ -19,7 +19,6 @@ export class CustomNodeModel extends NodeModel<
     });
     this.addPort(new CustomPortModel(PortModelAlignment.TOP));
     this.addPort(new CustomPortModel(PortModelAlignment.LEFT));
-    this.addPort(new CustomPortModel(PortModelAlignment.BOTTOM));
     this.addPort(new CustomPortModel(PortModelAlignment.RIGHT));
   }
 }
