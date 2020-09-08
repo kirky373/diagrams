@@ -3,7 +3,7 @@ import {
   DefaultNodeModel,
   PortModelAlignment,
 } from "@projectstorm/react-diagrams";
-import { IN, OUT, colour } from "../Types";
+import { IN, OUT, colour, TEST } from "../Types";
 import { CustomNodeModel } from "./CustomNode/CustomNodeModel";
 
 const model = DefaultDiagram();
@@ -67,6 +67,7 @@ function generateNodes(model: DiagramModel, offsetX: number, offsetY: number) {
   //create another default node
   var node2 = new DefaultNodeModel("Test in node", colour.in);
   var port2 = node2.addInPort(IN);
+  node2.addInPort(TEST);
   node2.setPosition(200 + offsetX, 100 + offsetY);
 
   //link the 2 nodes together

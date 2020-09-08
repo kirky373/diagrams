@@ -15,6 +15,7 @@ import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
 import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
+import _ from "lodash";
 
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 50vh;
@@ -64,7 +65,7 @@ export const Layer = styled.div`
 `;
 
 const model = DefaultDiagram;
-const engine = setEngine();
+let engine = setEngine();
 
 function setEngine() {
   let engine = createEngine();
@@ -95,6 +96,25 @@ function checkIfOutOfBoundsY(y: number) {
   }
   return y;
 }
+
+//TODO: Make this so it can select and specific node then add ports
+const addPorts = () => {
+  console.log("Adding port...");
+  const nodes: DefaultNodeModel[] = _.values(
+    model.getNodes()
+  ) as DefaultNodeModel[];
+  for (let node of nodes) {
+    console.log(node.getOptions().name);
+    if (node.getOptions().name === "In node") {
+      node.addInPort(`In-${node.getInPorts().length + 1}`, false);
+    } else if (node.getOptions().name === "Connection node") {
+      node.addInPort(`In-${node.getInPorts().length + 1}`, false);
+      node.addOutPort(`Out-${node.getOutPorts().length + 1}`, false);
+    }
+  }
+  engine = setEngine();
+  engine.repaintCanvas();
+};
 
 export default class diagram extends React.Component {
   render() {
@@ -163,6 +183,9 @@ export default class diagram extends React.Component {
             }
             <button onClick={() => engine.zoomToFitNodes(20)}>
               Zoom to fit
+            </button>
+            <button onClick={() => addPorts()}>
+              Add a port to a node(WIP)
             </button>
             <GridContainer color="#5f5f5f" background="white">
               <CanvasWidget engine={engine} />
