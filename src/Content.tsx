@@ -104,7 +104,6 @@ const addPorts = () => {
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    console.log(node.getOptions().name);
     if (node.getOptions().name === "In node") {
       node.addInPort(`In-${node.getInPorts().length + 1}`, false);
     } else if (node.getOptions().name === "Connection node") {
@@ -116,6 +115,7 @@ const addPorts = () => {
   engine.repaintCanvas();
 };
 //TODO: Make this work with specific selected nodes
+//      Delete links connected to the port
 //      Make this work with specific selected ports
 const deletePorts = () => {
   const nodes: DefaultNodeModel[] = _.values(
@@ -124,12 +124,16 @@ const deletePorts = () => {
   for (let node of nodes) {
     if (node.getOptions().name === "In node") {
       let ports = node.getInPorts();
-      node.removePort(ports[ports.length - 1]);
+      if (ports.length !== 0) {
+        node.removePort(ports[ports.length - 1]);
+      }
     } else if (node.getOptions().name === "Connection node") {
       let portsIn = node.getInPorts();
       let portsOut = node.getOutPorts();
-      node.removePort(portsIn[portsIn.length - 1]);
-      node.removePort(portsOut[portsOut.length - 1]);
+      if (portsIn.length !== 0 && portsOut.length !== 0) {
+        node.removePort(portsIn[portsIn.length - 1]);
+        node.removePort(portsOut[portsOut.length - 1]);
+      }
     }
   }
   engine = setEngine();
