@@ -1,8 +1,8 @@
 import {
   LinkModel,
-  PortModel,
   DefaultLinkModel,
   PortModelAlignment,
+  PortModel,
 } from "@projectstorm/react-diagrams";
 import { CUSTOM } from "../../Types";
 

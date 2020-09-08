@@ -1,5 +1,10 @@
-import { DiagramModel, DefaultNodeModel } from "@projectstorm/react-diagrams";
+import {
+  DiagramModel,
+  DefaultNodeModel,
+  PortModelAlignment,
+} from "@projectstorm/react-diagrams";
 import { IN, OUT, colour } from "../Types";
+import { CustomNodeModel } from "./CustomNode/CustomNodeModel";
 
 const model = DefaultDiagram();
 function DefaultDiagram() {
@@ -28,14 +33,18 @@ function DefaultDiagram() {
   node3.setPosition(400, 200);
   let port4 = node3.addInPort(IN);
 
+  const node4 = new CustomNodeModel();
+  node4.setPosition(250, 200);
+
   //link them and add a label to the link
-  const link = port1.link(port2);
-  const link2 = port3.link(port4);
-  const link3 = port1.link(port4);
+  const link1 = port1.link(node4.getPort(PortModelAlignment.LEFT));
+  const link2 = port4.link(node4.getPort(PortModelAlignment.RIGHT));
+  const link3 = port2.link(node4.getPort(PortModelAlignment.TOP));
+  const link4 = port3.link(node4.getPort(PortModelAlignment.TOP));
+
   //link.addLabel("Hello World!"); Does not work with react strict mode in index
 
   const model = new DiagramModel();
-  model.addAll(node1, node2, link);
 
   for (var i = 0; i < 2; i++) {
     for (var j = 0; j < 2; j++) {
@@ -44,7 +53,7 @@ function DefaultDiagram() {
   }
   //model.setGridSize(20);
   //model.setLocked(true);
-  model.addAll(node1, node2, node3, link, link2, link3);
+  model.addAll(node1, node2, node3, node4, link1, link2, link3, link4);
 
   return model;
 }
