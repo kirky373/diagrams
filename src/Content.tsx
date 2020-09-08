@@ -99,18 +99,20 @@ function checkIfOutOfBoundsY(y: number) {
 
 //TODO: Make this so it can select and specific node then add ports
 //      Possibly let user name the ports
+let portCounter = 0;
 const addPorts = () => {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
     if (node.getOptions().name === "In node") {
-      node.addInPort(`In-${node.getInPorts().length + 1}`, false);
+      node.addInPort(`In-${portCounter}`, false);
     } else if (node.getOptions().name === "Connection node") {
-      node.addInPort(`In-${node.getInPorts().length + 1}`, false);
-      node.addOutPort(`Out-${node.getOutPorts().length + 1}`, false);
+      node.addInPort(`In-${portCounter}`, false);
+      node.addOutPort(`Out-${portCounter}`, false);
     }
   }
+  portCounter++;
   engine.repaintCanvas();
 };
 //TODO: Make this work with specific selected nodes
