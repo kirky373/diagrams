@@ -96,9 +96,8 @@ function checkIfOutOfBoundsY(y: number) {
   }
   return y;
 }
-
-let portCounter = 0;
-let portName = "";
+//TODO: Put the port adding and deleting in its own file so its tider
+let portName = "Default";
 
 function handlePortNameInput(event) {
   portName = event.target.value;
@@ -118,7 +117,6 @@ const addPorts = () => {
       node.addOutPort(`${portName}-out`, false);
     }
   }
-  portCounter++;
   engine.repaintCanvas();
 };
 //TODO: Make this work with specific selected nodes
