@@ -148,6 +148,21 @@ export default class diagram extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
+        <button onClick={() => addPorts()}>Add a port to a node(WIP)</button>
+        <button onClick={() => deletePorts()}>
+          Delete a port to a node(WIP)
+        </button>
+        <form>
+          <label>
+            Port name:
+            <input
+              type="text"
+              defaultValue={portName}
+              onChange={handlePortNameInput}
+            />{" "}
+          </label>
+        </form>
         <Content>
           <Layer>
             {
@@ -209,15 +224,7 @@ export default class diagram extends React.Component {
                 event.preventDefault();
               })
             }
-            <button onClick={() => engine.zoomToFitNodes(20)}>
-              Zoom to fit
-            </button>
-            <button onClick={() => addPorts()}>
-              Add a port to a node(WIP)
-            </button>
-            <button onClick={() => deletePorts()}>
-              Delete a port to a node(WIP)
-            </button>
+
             <GridContainer color="#5f5f5f" background="white">
               <CanvasWidget engine={engine} />
             </GridContainer>
@@ -245,16 +252,6 @@ export default class diagram extends React.Component {
             />
           </TrayWidget>
         </Content>
-        <form>
-          <label>
-            Port name:
-            <input
-              type="text"
-              defaultValue={portName}
-              onChange={handlePortNameInput}
-            />{" "}
-          </label>
-        </form>
       </div>
     );
   }
