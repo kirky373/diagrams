@@ -81,6 +81,21 @@ function setEngine() {
   return engine;
 }
 
+//TODO: Make this not janky
+function checkIfOutOfBoundsX(x: number) {
+  if (x > 875) {
+    x = 875;
+  }
+  return x;
+}
+
+function checkIfOutOfBoundsY(y: number) {
+  if (y > 425) {
+    y = 425;
+  }
+  return y;
+}
+
 export default class diagram extends React.Component {
   render() {
     return (
@@ -105,11 +120,15 @@ export default class diagram extends React.Component {
                   case IN:
                     node = new DefaultNodeModel("In node", colour.in);
                     node.addInPort(IN);
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
                     node.setPosition(x, y);
                     break;
                   case OUT:
                     node = new DefaultNodeModel("Out node", colour.out);
                     node.addOutPort(OUT);
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
                     node.setPosition(x, y);
                     break;
                   case CONNECTION:
@@ -119,10 +138,14 @@ export default class diagram extends React.Component {
                     );
                     node.addInPort(IN);
                     node.addOutPort(OUT);
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
                     node.setPosition(x, y);
                     break;
                   case CUSTOM:
                     customNode = new CustomNodeModel();
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
                     customNode.setPosition(x, y);
                     break;
                   default:
@@ -158,7 +181,7 @@ export default class diagram extends React.Component {
             />
             <TrayItemWidget
               model={{ type: CONNECTION }}
-              name="Conenction Node"
+              name="Connection Node"
               color={colour.connection}
             />
             <TrayItemWidget
