@@ -98,8 +98,8 @@ function checkIfOutOfBoundsY(y: number) {
 }
 
 //TODO: Make this so it can select and specific node then add ports
+//      Possibly let user name the ports
 const addPorts = () => {
-  console.log("Adding port...");
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
@@ -110,6 +110,26 @@ const addPorts = () => {
     } else if (node.getOptions().name === "Connection node") {
       node.addInPort(`In-${node.getInPorts().length + 1}`, false);
       node.addOutPort(`Out-${node.getOutPorts().length + 1}`, false);
+    }
+  }
+  engine = setEngine();
+  engine.repaintCanvas();
+};
+//TODO: Make this work with specific selected nodes
+//      Make this work with specific selected ports
+const deletePorts = () => {
+  const nodes: DefaultNodeModel[] = _.values(
+    model.getNodes()
+  ) as DefaultNodeModel[];
+  for (let node of nodes) {
+    if (node.getOptions().name === "In node") {
+      let ports = node.getInPorts();
+      node.removePort(ports[ports.length - 1]);
+    } else if (node.getOptions().name === "Connection node") {
+      let portsIn = node.getInPorts();
+      let portsOut = node.getOutPorts();
+      node.removePort(portsIn[portsIn.length - 1]);
+      node.removePort(portsOut[portsOut.length - 1]);
     }
   }
   engine = setEngine();
@@ -186,6 +206,9 @@ export default class diagram extends React.Component {
             </button>
             <button onClick={() => addPorts()}>
               Add a port to a node(WIP)
+            </button>
+            <button onClick={() => deletePorts()}>
+              Delete a port to a node(WIP)
             </button>
             <GridContainer color="#5f5f5f" background="white">
               <CanvasWidget engine={engine} />
