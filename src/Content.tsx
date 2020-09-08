@@ -111,7 +111,6 @@ const addPorts = () => {
       node.addOutPort(`Out-${node.getOutPorts().length + 1}`, false);
     }
   }
-  engine = setEngine();
   engine.repaintCanvas();
 };
 //TODO: Make this work with specific selected nodes
@@ -136,7 +135,6 @@ const deletePorts = () => {
       }
     }
   }
-  engine = setEngine();
   engine.repaintCanvas();
 };
 
