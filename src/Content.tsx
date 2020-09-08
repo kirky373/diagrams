@@ -97,19 +97,25 @@ function checkIfOutOfBoundsY(y: number) {
   return y;
 }
 
-//TODO: Make this so it can select and specific node then add ports
-//      Possibly let user name the ports
 let portCounter = 0;
+let portName = "";
+
+function handlePortNameInput(event) {
+  portName = event.target.value;
+  console.log(portName);
+}
+//TODO: Make this so it can select and specific node then add ports
+//      Stop the user adding the same name twice otherwise delete will not work
 const addPorts = () => {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
     if (node.getOptions().name === "In node") {
-      node.addInPort(`In-${portCounter}`, false);
+      node.addInPort(`${portName}-in`, false);
     } else if (node.getOptions().name === "Connection node") {
-      node.addInPort(`In-${portCounter}`, false);
-      node.addOutPort(`Out-${portCounter}`, false);
+      node.addInPort(`${portName}-in`, false);
+      node.addOutPort(`${portName}-out`, false);
     }
   }
   portCounter++;
@@ -241,6 +247,16 @@ export default class diagram extends React.Component {
             />
           </TrayWidget>
         </Content>
+        <form>
+          <label>
+            Port name:
+            <input
+              type="text"
+              defaultValue={portName}
+              onChange={handlePortNameInput}
+            />{" "}
+          </label>
+        </form>
       </div>
     );
   }
