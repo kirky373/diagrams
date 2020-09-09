@@ -10,7 +10,6 @@ import { TrayItemWidget } from "./Components/Tray/TrayItemWidget";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
 import { IN, OUT, CONNECTION, CUSTOM, colour } from "./Types";
-
 import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
@@ -100,7 +99,6 @@ function checkIfOutOfBoundsY(y: number) {
   }
   return y;
 }
-//TODO: Put the port adding and deleting in its own file so its tider
 
 export default class diagram extends React.Component {
   render() {
@@ -120,7 +118,7 @@ export default class diagram extends React.Component {
               type="text"
               defaultValue="Default"
               onChange={handlePortNameInput}
-            />{" "}
+            />
           </label>
         </form>
         <Content>

@@ -1,15 +1,18 @@
-import { DefaultNodeModel } from "@projectstorm/react-diagrams";
+import {
+  DefaultNodeModel,
+  DiagramEngine,
+  DiagramModel,
+} from "@projectstorm/react-diagrams";
 import _ from "lodash";
 
 let portName = "Default";
 
-export function handlePortNameInput(event) {
+export function handlePortNameInput(event: { target: { value: string } }) {
   portName = event.target.value;
-  console.log(portName);
 }
 //TODO: Make this so it can select and specific node then add ports
 //      Stop the user adding the same name twice otherwise delete will not work
-export function addPorts(model, engine) {
+export function addPorts(model: DiagramModel, engine: DiagramEngine) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
@@ -26,7 +29,7 @@ export function addPorts(model, engine) {
 //TODO: Make this work with specific selected nodes
 //      Delete links connected to the port
 //      Make this work with specific selected ports
-export function deletePorts(model, engine) {
+export function deletePorts(model: DiagramModel, engine: DiagramEngine) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
