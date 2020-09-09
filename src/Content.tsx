@@ -15,7 +15,11 @@ import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
 import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
-import _ from "lodash";
+import {
+  addPorts,
+  deletePorts,
+  handlePortNameInput,
+} from "./Components/PortEditing";
 
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 50vh;
@@ -97,60 +101,16 @@ function checkIfOutOfBoundsY(y: number) {
   return y;
 }
 //TODO: Put the port adding and deleting in its own file so its tider
-let portName = "Default";
-
-function handlePortNameInput(event) {
-  portName = event.target.value;
-  console.log(portName);
-}
-//TODO: Make this so it can select and specific node then add ports
-//      Stop the user adding the same name twice otherwise delete will not work
-const addPorts = () => {
-  const nodes: DefaultNodeModel[] = _.values(
-    model.getNodes()
-  ) as DefaultNodeModel[];
-  for (let node of nodes) {
-    if (node.getOptions().name === "In node") {
-      node.addInPort(`${portName}-in`, false);
-    } else if (node.getOptions().name === "Connection node") {
-      node.addInPort(`${portName}-in`, false);
-      node.addOutPort(`${portName}-out`, false);
-    }
-  }
-  engine.repaintCanvas();
-};
-//TODO: Make this work with specific selected nodes
-//      Delete links connected to the port
-//      Make this work with specific selected ports
-const deletePorts = () => {
-  const nodes: DefaultNodeModel[] = _.values(
-    model.getNodes()
-  ) as DefaultNodeModel[];
-  for (let node of nodes) {
-    if (node.getOptions().name === "In node") {
-      let ports = node.getInPorts();
-      if (ports.length !== 0) {
-        node.removePort(ports[ports.length - 1]);
-      }
-    } else if (node.getOptions().name === "Connection node") {
-      let portsIn = node.getInPorts();
-      let portsOut = node.getOutPorts();
-      if (portsIn.length !== 0 && portsOut.length !== 0) {
-        node.removePort(portsIn[portsIn.length - 1]);
-        node.removePort(portsOut[portsOut.length - 1]);
-      }
-    }
-  }
-  engine.repaintCanvas();
-};
 
 export default class diagram extends React.Component {
   render() {
     return (
       <div>
         <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
-        <button onClick={() => addPorts()}>Add a port to a node(WIP)</button>
-        <button onClick={() => deletePorts()}>
+        <button onClick={() => addPorts(model, engine)}>
+          Add a port to a node(WIP)
+        </button>
+        <button onClick={() => deletePorts(model, engine)}>
           Delete a port to a node(WIP)
         </button>
         <form>
@@ -158,7 +118,7 @@ export default class diagram extends React.Component {
             Port name:
             <input
               type="text"
-              defaultValue={portName}
+              defaultValue="Default"
               onChange={handlePortNameInput}
             />{" "}
           </label>
