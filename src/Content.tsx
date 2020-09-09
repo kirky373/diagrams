@@ -18,10 +18,11 @@ import {
   addPorts,
   deletePorts,
   handlePortNameInput,
+  handleNodeNameInput,
 } from "./Components/PortEditing";
 
 export const GridContainer = styled.div<{ color: string; background: string }>`
-  height: 50vh;
+  height: 60vh;
   background-color: ${(p) => p.background};
   background-size: 50px 50px;
   margin: 5px;
@@ -65,6 +66,15 @@ export const Content = styled.div`
 export const Layer = styled.div`
   position: relative;
   flex-grow: 1;
+`;
+
+export const InputArea = styled.div`
+  padding: 0px 2px;
+  margin: 0px;
+`;
+export const InputNames = styled.p`
+margin: 0px;
+padding 0px;
 `;
 
 const model = DefaultDiagram;
@@ -112,14 +122,26 @@ export default class diagram extends React.Component {
           Delete a port to a node(WIP)
         </button>
         <form>
-          <label>
-            Port name:
-            <input
-              type="text"
-              defaultValue="Default"
-              onChange={handlePortNameInput}
-            />
-          </label>
+          <InputArea>
+            <label>
+              <InputNames>Node name: </InputNames>
+              <input
+                type="text"
+                defaultValue=""
+                onChange={handleNodeNameInput}
+              />
+            </label>
+          </InputArea>
+          <InputArea>
+            <label>
+              <InputNames>Port name: </InputNames>
+              <input
+                type="text"
+                defaultValue=""
+                onChange={handlePortNameInput}
+              />
+            </label>
+          </InputArea>
         </form>
         <Content>
           <Layer>
