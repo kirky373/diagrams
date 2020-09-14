@@ -15,7 +15,12 @@ export class CustomNodeFactory extends AbstractReactFactory<
 
   generateReactWidget(event): JSX.Element {
     return (
-      <CustomNodeWidget engine={this.engine} size={50} node={event.model} />
+      <CustomNodeWidget
+        engine={this.engine}
+        size={50}
+        name="Custom node"
+        node={event.model}
+      />
     );
   }
   generateModel() {

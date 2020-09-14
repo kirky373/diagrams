@@ -12,6 +12,7 @@ export interface CustomNodeWidgetProps {
   node: CustomNodeModel;
   engine: DiagramEngine;
   size?: number;
+  name?: string;
 }
 
 export const Port = styled.div`
@@ -30,7 +31,7 @@ export class CustomNodeWidget extends React.Component<CustomNodeWidgetProps> {
   render() {
     return (
       <div
-        className={"custom-node"}
+        className={this.props.name}
         style={{
           position: "relative",
           width: this.props.size,

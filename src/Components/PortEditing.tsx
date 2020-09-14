@@ -4,24 +4,25 @@ import {
   DiagramModel,
 } from "@projectstorm/react-diagrams";
 import _ from "lodash";
+//import { nodeName } from "./DropDown";
 
 let portName = "";
-let nodeName = "";
 
 export function handlePortNameInput(event: { target: { value: string } }) {
   portName = event.target.value;
 }
 
-export function handleNodeNameInput(event: { target: { value: string } }) {
+/* export function handleNodeNameInput(event: { target: { value: string } }) {
   nodeName = event.target.value;
-}
+} */
+
 //TODO: Stop the user adding the same name twice otherwise delete will not work
 export function addPorts(model: DiagramModel, engine: DiagramEngine) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === nodeName && portName !== "") {
+    if (node.getOptions().name === "nodeName" && portName !== "") {
       node.addInPort(`${portName}-in`, false);
     }
   }
@@ -34,7 +35,7 @@ export function deletePorts(model: DiagramModel, engine: DiagramEngine) {
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === nodeName) {
+    if (node.getOptions().name === "nodeName") {
       let ports = node.getInPorts();
       if (ports.length !== 0) {
         node.removePort(ports[ports.length - 1]);

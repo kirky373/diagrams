@@ -18,11 +18,9 @@ import {
   addPorts,
   deletePorts,
   handlePortNameInput,
-  handleNodeNameInput,
 } from "./Components/PortEditing";
 
-import DropDown from "./Components/Dropdown";
-
+import DropDown from "./Components/DropDown";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -123,17 +121,9 @@ export default class diagram extends React.Component {
         <button onClick={() => deletePorts(model, engine)}>
           Delete a port to a node(WIP)
         </button>
+
+        <DropDown model={model} />
         <form>
-          <InputArea>
-            <label>
-              <InputNames>Node name: </InputNames>
-              <input
-                type="text"
-                defaultValue=""
-                onChange={handleNodeNameInput}
-              />
-            </label>
-          </InputArea>
           <InputArea>
             <label>
               <InputNames>Port name: </InputNames>
@@ -145,7 +135,6 @@ export default class diagram extends React.Component {
             </label>
           </InputArea>
         </form>
-        {DropDown(model)}
         <Content>
           <Layer>
             {
