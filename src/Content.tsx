@@ -5,8 +5,7 @@ import createEngine, {
   PortModelAlignment,
 } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { TrayWidget } from "./Components/Tray/TrayWidget";
-import { TrayItemWidget } from "./Components/Tray/TrayItemWidget";
+import Tray from "./Components/Tray/Tray";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
 import { IN, OUT, CONNECTION, CUSTOM, colour } from "./Types";
@@ -21,6 +20,7 @@ import {
 } from "./Components/PortEditing";
 
 import DropDown from "./Components/DropDown";
+import getNodeNames from "./Components/GetNodeNames";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -110,19 +110,40 @@ function checkIfOutOfBoundsY(y: number) {
   return y;
 }
 
-export default class diagram extends React.Component {
+interface Props {}
+interface State {
+  nodeNames: string[];
+  selectedNodeName: string;
+  PortName: string;
+}
+export default class diagram extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nodeNames: getNodeNames(model),
+      selectedNodeName: "",
+      PortName: "",
+    };
+  }
+
   render() {
     return (
       <div>
         <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
-        <button onClick={() => addPorts(model, engine)}>
+        <button
+          onClick={() => addPorts(model, engine, this.state.selectedNodeName)}
+        >
           Add a port to a node(WIP)
         </button>
-        <button onClick={() => deletePorts(model, engine)}>
+        <button
+          onClick={() =>
+            deletePorts(model, engine, this.state.selectedNodeName)
+          }
+        >
           Delete a port to a node(WIP)
         </button>
 
-        <DropDown model={model} />
+        <DropDown model={model} /* TODO: Make this have a listener */ />
         <form>
           <InputArea>
             <label>
@@ -201,28 +222,7 @@ export default class diagram extends React.Component {
               <CanvasWidget engine={engine} />
             </GridContainer>
           </Layer>
-          <TrayWidget>
-            <TrayItemWidget
-              model={{ type: IN }}
-              name="In Node"
-              color={colour.in}
-            />
-            <TrayItemWidget
-              model={{ type: OUT }}
-              name="Out Node"
-              color={colour.out}
-            />
-            <TrayItemWidget
-              model={{ type: CONNECTION }}
-              name="Connection Node"
-              color={colour.connection}
-            />
-            <TrayItemWidget
-              model={{ type: CUSTOM }}
-              name="Custom Node"
-              color={colour.custom}
-            />
-          </TrayWidget>
+          {Tray()}
         </Content>
       </div>
     );

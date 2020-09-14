@@ -17,12 +17,16 @@ export function handlePortNameInput(event: { target: { value: string } }) {
 } */
 
 //TODO: Stop the user adding the same name twice otherwise delete will not work
-export function addPorts(model: DiagramModel, engine: DiagramEngine) {
+export function addPorts(
+  model: DiagramModel,
+  engine: DiagramEngine,
+  nodeName: String
+) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === "nodeName" && portName !== "") {
+    if (node.getOptions().name === nodeName && portName !== "") {
       node.addInPort(`${portName}-in`, false);
     }
   }
@@ -30,12 +34,16 @@ export function addPorts(model: DiagramModel, engine: DiagramEngine) {
 }
 //TODO: Delete links connected to the port
 //      Make this work with specific selected ports (loop)
-export function deletePorts(model: DiagramModel, engine: DiagramEngine) {
+export function deletePorts(
+  model: DiagramModel,
+  engine: DiagramEngine,
+  nodeName: String
+) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === "nodeName") {
+    if (node.getOptions().name === nodeName) {
       let ports = node.getInPorts();
       if (ports.length !== 0) {
         node.removePort(ports[ports.length - 1]);

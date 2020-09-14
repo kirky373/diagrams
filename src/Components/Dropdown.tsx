@@ -33,17 +33,17 @@ interface DropDownProps {
   className?: string;
 }
 interface State {
-  nodeName: string;
+  name: string;
 }
 export default class DropDown extends React.Component<DropDownProps, State> {
   constructor(props) {
     super(props);
-    this.state = { nodeName: "" };
+    this.state = { name: "" };
   }
 
   handleNodeNameInput(name) {
     console.log(name);
-    this.setState({ nodeName: name });
+    this.setState({ name: name });
   }
 
   nodes: DefaultNodeModel[] = _.values(
@@ -67,7 +67,7 @@ export default class DropDown extends React.Component<DropDownProps, State> {
           </Dropdown.Toggle>
           <Dropdown.Menu>{this.nodeNames}</Dropdown.Menu>
         </Dropdown>
-        <h5>Node name: {this.state.nodeName}</h5>
+        <h5>Node name: {this.state.name}</h5>
       </div>
     );
   }
