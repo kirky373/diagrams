@@ -21,6 +21,8 @@ import {
   handleNodeNameInput,
 } from "./Components/PortEditing";
 
+import DropDown from "./Components/Dropdown";
+
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -143,6 +145,7 @@ export default class diagram extends React.Component {
             </label>
           </InputArea>
         </form>
+        {DropDown(model)}
         <Content>
           <Layer>
             {
