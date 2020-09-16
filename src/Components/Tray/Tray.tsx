@@ -3,7 +3,7 @@ import { IN, OUT, CONNECTION, CUSTOM, colour } from "../../Types";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { TrayWidget } from "./TrayWidget";
 
-export default function tray() {
+export default () => {
   return (
     <TrayWidget>
       <TrayItemWidget model={{ type: IN }} name="In Node" color={colour.in} />
@@ -24,4 +24,4 @@ export default function tray() {
       />
     </TrayWidget>
   );
-}
+};
