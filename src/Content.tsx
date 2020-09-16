@@ -21,6 +21,8 @@ import {
 
 import DropDown from "./Components/DropDown";
 import getNodeNames from "./Components/GetNodeNames";
+import serializeModel from "./Components/SerializeModel";
+import deserializeJSONModel from "./Components/DeserializeJSONModel";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -77,7 +79,7 @@ margin: 0px;
 padding 0px;
 `;
 
-const model = DefaultDiagram;
+let model = DefaultDiagram;
 let engine = setEngine();
 
 function setEngine() {
@@ -121,7 +123,7 @@ export default class diagram extends React.Component<Props, State> {
     super(props);
     this.state = {
       nodeNames: getNodeNames(model),
-      selectedNodeName: "",
+      selectedNodeName: "Test out node",
       PortName: "",
     };
   }
@@ -142,6 +144,12 @@ export default class diagram extends React.Component<Props, State> {
         >
           Delete a port to a node(WIP)
         </button>
+        <button onClick={() => serializeModel(model)}>
+          Serialize the model(WIP)
+        </button>
+        <button onClick={() => engine.setModel(deserializeJSONModel(engine))}>
+          Deserialize the model(WIP)
+        </button>
 
         <DropDown model={model} /* TODO: Make this have a listener */ />
         <form>
@@ -150,7 +158,7 @@ export default class diagram extends React.Component<Props, State> {
               <InputNames>Port name: </InputNames>
               <input
                 type="text"
-                defaultValue=""
+                defaultValue={this.state.PortName}
                 onChange={handlePortNameInput}
               />
             </label>

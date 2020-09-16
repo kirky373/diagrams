@@ -6,28 +6,6 @@ import _ from "lodash";
 
 //TODO: Remove the custom node name which is null/empty
 //      Pass the node name to the selected node to be able to add ports
-/* function DropDown(model) {
-  const nodes: DefaultNodeModel[] = _.values(
-    model.getNodes()
-  ) as DefaultNodeModel[];
-  const nodeNames = nodes.map((node) => (
-    <Dropdown.Item
-      onClick={() => handleNodeNameInput(node.getOptions().name)}
-      key={node.getOptions().name}
-    >
-      {node.getOptions().name}
-    </Dropdown.Item>
-  ));
-  return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Select a node
-      </Dropdown.Toggle>
-      <Dropdown.Menu>{nodeNames}</Dropdown.Menu>
-    </Dropdown>
-  );
-} */
-
 interface DropDownProps {
   model: DiagramModel;
   className?: string;

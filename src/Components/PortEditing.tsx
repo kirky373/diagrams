@@ -4,17 +4,12 @@ import {
   DiagramModel,
 } from "@projectstorm/react-diagrams";
 import _ from "lodash";
-//import { nodeName } from "./DropDown";
 
 let portName = "";
 
 export function handlePortNameInput(event: { target: { value: string } }) {
   portName = event.target.value;
 }
-
-/* export function handleNodeNameInput(event: { target: { value: string } }) {
-  nodeName = event.target.value;
-} */
 
 //TODO: Stop the user adding the same name twice otherwise delete will not work
 export function addPorts(
