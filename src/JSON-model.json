@@ -763,6 +763,24 @@
               "links": []
             }
           ]
+        },
+        "b707e5ec-fe3d-4624-9a6c-39c53418c0c7": {
+          "id": "b707e5ec-fe3d-4624-9a6c-39c53418c0c7",
+          "type": "Start",
+          "x": 510,
+          "y": 425,
+          "ports": [
+            {
+              "id": "27d0bd41-91e1-4d25-8ed0-3247e4b72dd7",
+              "type": "Start",
+              "x": 542,
+              "y": 496.433349609375,
+              "name": "bottom",
+              "alignment": "bottom",
+              "parentNode": "b707e5ec-fe3d-4624-9a6c-39c53418c0c7",
+              "links": []
+            }
+          ]
         }
       }
     }

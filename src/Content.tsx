@@ -8,21 +8,22 @@ import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import Tray from "./Components/Tray/Tray";
 import styled from "@emotion/styled";
 import DefaultDiagram from "./Components/DefaultDiagram";
-import { IN, OUT, CONNECTION, CUSTOM, colour } from "./Types";
+import { IN, OUT, CONNECTION, CUSTOM, colour, START, END } from "./Types";
 import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
-import { SimplePortFactory } from "./Components/CustomNode/SimplePortFactory";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
-import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
-import {
-  addPorts,
-  deletePorts,
-  handlePortNameInput,
-} from "./Components/PortEditing";
+import { handlePortNameInput } from "./Components/PortEditing";
 
 import DropDown from "./Components/DropDown";
 import getNodeNames from "./Components/GetNodeNames";
-import serializeModel from "./Components/SerializeModel";
-import deserializeJSONModel from "./Components/DeserializeJSONModel";
+import ButtonBar from "./Components/ButtonBar";
+import { StartNodeModel } from "./Components/StartNode/StartNodeModel";
+import { StartNodeFactory } from "./Components/StartNode/StartNodeFactory";
+import { SimplePortFactory } from "./Components/SimplePortFactory";
+import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
+import { StartPortModel } from "./Components/StartNode/StartPortModel";
+import { EndNodeFactory } from "./Components/EndNode/EndNodeFactory";
+import { EndPortModel } from "./Components/EndNode/EndPortModel";
+import { EndNodeModel } from "./Components/EndNode/EndNodeModel";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -92,7 +93,25 @@ function setEngine() {
         (config) => new CustomPortModel(PortModelAlignment.LEFT)
       )
     );
+  engine
+    .getPortFactories()
+    .registerFactory(
+      new SimplePortFactory(
+        START,
+        (config) => new StartPortModel(PortModelAlignment.BOTTOM)
+      )
+    );
+  engine
+    .getPortFactories()
+    .registerFactory(
+      new SimplePortFactory(
+        START,
+        (config) => new EndPortModel(PortModelAlignment.TOP)
+      )
+    );
   engine.getNodeFactories().registerFactory(new CustomNodeFactory());
+  engine.getNodeFactories().registerFactory(new StartNodeFactory());
+  engine.getNodeFactories().registerFactory(new EndNodeFactory());
   engine.setModel(model);
   return engine;
 }
@@ -123,35 +142,23 @@ export default class diagram extends React.Component<Props, State> {
     super(props);
     this.state = {
       nodeNames: getNodeNames(model),
-      selectedNodeName: "Test out node",
+      selectedNodeName: "",
       PortName: "",
     };
   }
 
   render() {
     return (
-      <div>
-        <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
-        <button
-          onClick={() => addPorts(model, engine, this.state.selectedNodeName)}
-        >
-          Add a port to a node(WIP)
-        </button>
-        <button
-          onClick={() =>
-            deletePorts(model, engine, this.state.selectedNodeName)
-          }
-        >
-          Delete a port to a node(WIP)
-        </button>
-        <button onClick={() => serializeModel(model)}>
-          Serialize the model(WIP)
-        </button>
-        <button onClick={() => engine.setModel(deserializeJSONModel(engine))}>
-          Deserialize the model(WIP)
-        </button>
-
-        <DropDown model={model} /* TODO: Make this have a listener */ />
+      <React.Fragment>
+        <ButtonBar
+          model={model}
+          engine={engine}
+          selectedNodeName={this.state.selectedNodeName}
+        />
+        <DropDown
+          model={model}
+          nodeNames={getNodeNames(model)} /* TODO: Make this have a listener */
+        />
         <form>
           <InputArea>
             <label>
@@ -179,6 +186,8 @@ export default class diagram extends React.Component<Props, State> {
                 let y = event.clientY!;
                 var node: DefaultNodeModel;
                 var customNode: CustomNodeModel;
+                var startNode: StartNodeModel;
+                var endNode: EndNodeModel;
                 //TODO: Get this working to add nodes to the model where user drops them
                 switch (data.type) {
                   case IN:
@@ -212,11 +221,23 @@ export default class diagram extends React.Component<Props, State> {
                     y = checkIfOutOfBoundsY(y);
                     customNode.setPosition(x, y);
                     break;
+                  case START:
+                    startNode = new StartNodeModel();
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
+                    startNode.setPosition(x, y);
+                    break;
+                  case END:
+                    endNode = new EndNodeModel();
+                    x = checkIfOutOfBoundsX(x);
+                    y = checkIfOutOfBoundsY(y);
+                    endNode.setPosition(x, y);
+                    break;
                   default:
                     node = new DefaultNodeModel("Error node", colour.custom);
                 }
 
-                model.addAll(node, customNode);
+                model.addAll(node, customNode, startNode, endNode);
                 this.forceUpdate();
               })
             }
@@ -230,9 +251,9 @@ export default class diagram extends React.Component<Props, State> {
               <CanvasWidget engine={engine} />
             </GridContainer>
           </Layer>
-          {Tray()}
+          <Tray />
         </Content>
-      </div>
+      </React.Fragment>
     );
   }
 }
