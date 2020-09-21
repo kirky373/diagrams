@@ -1,8 +1,8 @@
 import { DiagramEngine } from "@projectstorm/react-diagrams";
-import ModelData from "../JSON-model.json";
-import { CustomNodeFactory } from "./CustomNode/CustomNodeFactory";
-import { EndNodeFactory } from "./EndNode/EndNodeFactory";
-import { StartNodeFactory } from "./StartNode/StartNodeFactory";
+import ModelData from "../../JSON-model.json";
+import { CustomNodeFactory } from "../CustomNode/CustomNodeFactory";
+import { EndNodeFactory } from "../EndNode/EndNodeFactory";
+import { StartNodeFactory } from "../StartNode/StartNodeFactory";
 
 export default (engine: DiagramEngine, model) => {
   registerFactory(new CustomNodeFactory(), engine);

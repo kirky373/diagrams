@@ -11,14 +11,14 @@ import DefaultDiagram from "./Components/DefaultDiagram";
 import { IN, OUT, CONNECTION, CUSTOM, colour, START, END } from "./Types";
 import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
-import { handlePortNameInput } from "./Components/PortEditing";
+import { handlePortNameInput } from "./Components/Utility/PortEditing";
 
 import DropDown from "./Components/DropDown";
-import getNodeNames from "./Components/GetNodeNames";
+import getNodeNames from "./Components/Utility/GetNodeNames";
 import ButtonBar from "./Components/ButtonBar";
 import { StartNodeModel } from "./Components/StartNode/StartNodeModel";
 import { StartNodeFactory } from "./Components/StartNode/StartNodeFactory";
-import { SimplePortFactory } from "./Components/SimplePortFactory";
+import { SimplePortFactory } from "./Components/Utility/SimplePortFactory";
 import { CustomPortModel } from "./Components/CustomNode/CustomPortModel";
 import { StartPortModel } from "./Components/StartNode/StartPortModel";
 import { EndNodeFactory } from "./Components/EndNode/EndNodeFactory";
@@ -80,7 +80,7 @@ margin: 0px;
 padding 0px;
 `;
 
-let model = DefaultDiagram;
+let model = DefaultDiagram();
 let engine = setEngine();
 
 function setEngine() {
@@ -105,7 +105,7 @@ function setEngine() {
     .getPortFactories()
     .registerFactory(
       new SimplePortFactory(
-        START,
+        END,
         (config) => new EndPortModel(PortModelAlignment.TOP)
       )
     );

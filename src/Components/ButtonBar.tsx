@@ -1,7 +1,7 @@
 import React from "react";
-import { addPorts, deletePorts } from "./PortEditing";
-import serializeModel from "./SerializeModel";
-import deserializeJSONModel from "./DeserializeJSONModel";
+import { addPorts, deletePorts } from "./Utility/PortEditing";
+import serializeModel from "./Utility/SerializeModel";
+import deserializeJSONModel from "./Utility/DeserializeJSONModel";
 
 const ButtonBar = (props) => {
   const { model, engine, selectedNodeName } = props;
