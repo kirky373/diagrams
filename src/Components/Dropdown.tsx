@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-//TODO: Remove the custom node name which is null/empty
-//      Pass the node name to the selected node to be able to add ports
+//TODO: Pass the node name to the selected node to be able to add ports
 const DropDown = (props) => {
   const [nodeName, setNodeName] = useState();
   const handleNodeNameInput = (name: any) => {
     setNodeName(name);
   };
-  let items = props.nodeNames.map((node) => (
-    <Dropdown.Item onClick={() => handleNodeNameInput(node)}>
-      {node}
-    </Dropdown.Item>
-  ));
+  let items = props.nodeNames.map((node) => {
+    return (
+      <Dropdown.Item onClick={() => handleNodeNameInput(node)}>
+        {node}
+      </Dropdown.Item>
+    );
+  });
   return (
     <React.Fragment>
       <Dropdown>

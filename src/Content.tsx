@@ -184,11 +184,12 @@ export default class diagram extends React.Component<Props, State> {
                 );
                 let x = event.clientX!;
                 let y = event.clientY!;
+
                 var node: DefaultNodeModel;
                 var customNode: CustomNodeModel;
                 var startNode: StartNodeModel;
                 var endNode: EndNodeModel;
-                //TODO: Get this working to add nodes to the model where user drops them
+
                 switch (data.type) {
                   case IN:
                     node = new DefaultNodeModel("In node", colour.in);
