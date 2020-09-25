@@ -12,6 +12,10 @@ export const InputNames = styled.p`
 margin: 0px;
 padding 0px;
 `;
+export const PortButton = styled.div`
+  display: inline;
+  padding-right: 10px;
+`;
 //TODO: Pass selection for in and out ports addition and deletion
 const Editing = (props) => {
   const { model, engine } = props;
@@ -53,7 +57,7 @@ const Editing = (props) => {
             />
           </label>
         </InputArea>
-        <div className="radio">
+        <PortButton>
           <label>
             <input
               type="radio"
@@ -63,8 +67,8 @@ const Editing = (props) => {
             />
             In port
           </label>
-        </div>
-        <div className="radio">
+        </PortButton>
+        <PortButton>
           <label>
             <input
               type="radio"
@@ -74,7 +78,7 @@ const Editing = (props) => {
             />
             Out port
           </label>
-        </div>
+        </PortButton>
       </form>
     </React.Fragment>
   );

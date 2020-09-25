@@ -11,12 +11,12 @@ const ButtonBar = (props) => {
       <button
         onClick={() => addPorts(model, engine, selectedNodeName, portInput)}
       >
-        Add a port to a node(WIP)
+        Add a port to a node
       </button>
       <button
         onClick={() => deletePorts(model, engine, selectedNodeName, portInput)}
       >
-        Delete a port to a node(WIP)
+        Delete a port to a node
       </button>
       <button onClick={() => serializeModel(model)}>
         Serialize the model(WIP)
