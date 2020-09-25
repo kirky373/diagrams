@@ -11,6 +11,5 @@ export default (model) => {
       names.push(node.getOptions().name);
     }
   });
-
   return names;
 };

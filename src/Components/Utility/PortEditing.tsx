@@ -5,34 +5,31 @@ import {
 } from "@projectstorm/react-diagrams";
 import _ from "lodash";
 
-let portName = "";
-
-export function handlePortNameInput(event: { target: { value: string } }) {
-  portName = event.target.value;
-}
-
 //TODO: Stop the user adding the same name twice otherwise delete will not work
 export function addPorts(
   model: DiagramModel,
   engine: DiagramEngine,
-  nodeName: String
+  selectedNodeName: String,
+  portInput: String
 ) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === nodeName && portName !== "") {
-      node.addInPort(`${portName}-in`, false);
+    console.log(selectedNodeName);
+    if (node.getOptions().name === selectedNodeName && portInput !== "") {
+      console.log("Adding");
+      node.addInPort(`${portInput}-in`, false);
     }
   }
   engine.repaintCanvas();
 }
-//TODO: Delete links connected to the port
-//      Make this work with specific selected ports (loop)
+//TODO: Make this work with specific selected ports (loop)
 export function deletePorts(
   model: DiagramModel,
   engine: DiagramEngine,
-  nodeName: String
+  nodeName: String,
+  portInput: String
 ) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()

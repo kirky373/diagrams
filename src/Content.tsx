@@ -11,11 +11,6 @@ import DefaultDiagram from "./Components/DefaultDiagram";
 import { IN, OUT, CONNECTION, CUSTOM, colour, START, END } from "./Types";
 import { CustomNodeModel } from "./Components/CustomNode/CustomNodeModel";
 import { CustomNodeFactory } from "./Components/CustomNode/CustomNodeFactory";
-import { handlePortNameInput } from "./Components/Utility/PortEditing";
-
-import DropDown from "./Components/DropDown";
-import getNodeNames from "./Components/Utility/GetNodeNames";
-import ButtonBar from "./Components/ButtonBar";
 import { StartNodeModel } from "./Components/StartNode/StartNodeModel";
 import { StartNodeFactory } from "./Components/StartNode/StartNodeFactory";
 import { SimplePortFactory } from "./Components/Utility/SimplePortFactory";
@@ -24,6 +19,7 @@ import { StartPortModel } from "./Components/StartNode/StartPortModel";
 import { EndNodeFactory } from "./Components/EndNode/EndNodeFactory";
 import { EndPortModel } from "./Components/EndNode/EndPortModel";
 import { EndNodeModel } from "./Components/EndNode/EndNodeModel";
+import Editing from "./Components/Editing";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};
@@ -69,15 +65,6 @@ export const Content = styled.div`
 export const Layer = styled.div`
   position: relative;
   flex-grow: 1;
-`;
-
-export const InputArea = styled.div`
-  padding: 0px 2px;
-  margin: 0px;
-`;
-export const InputNames = styled.p`
-margin: 0px;
-padding 0px;
 `;
 
 let model = DefaultDiagram();
@@ -131,46 +118,11 @@ function checkIfOutOfBoundsY(y: number) {
   return y;
 }
 
-interface Props {}
-interface State {
-  nodeNames: string[];
-  selectedNodeName: string;
-  PortName: string;
-}
-export default class diagram extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nodeNames: getNodeNames(model),
-      selectedNodeName: "",
-      PortName: "",
-    };
-  }
-
+export default class diagram extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <ButtonBar
-          model={model}
-          engine={engine}
-          selectedNodeName={this.state.selectedNodeName}
-        />
-        <DropDown
-          model={model}
-          nodeNames={getNodeNames(model)} /* TODO: Make this have a listener */
-        />
-        <form>
-          <InputArea>
-            <label>
-              <InputNames>Port name: </InputNames>
-              <input
-                type="text"
-                defaultValue={this.state.PortName}
-                onChange={handlePortNameInput}
-              />
-            </label>
-          </InputArea>
-        </form>
+        <Editing model={model} engine={engine} />
         <Content>
           <Layer>
             {
