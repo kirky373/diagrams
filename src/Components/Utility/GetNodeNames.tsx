@@ -5,13 +5,12 @@ export default (model) => {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
-
-  const nodeNames = nodes.map((node) => {
+  let names = [];
+  nodes.forEach(function (node) {
     if (node.getOptions().name !== undefined) {
-      return node.getOptions().name;
-    } else {
-      return node.getOptions().type;
+      names.push(node.getOptions().name);
     }
   });
-  return nodeNames;
+
+  return names;
 };

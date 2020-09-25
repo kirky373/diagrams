@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 //TODO: Pass the node name to the selected node to be able to add ports
 const DropDown = (props) => {
-  const [nodeName, setNodeName] = useState();
+  const [nodeName, setNodeName] = useState("None selected");
   const handleNodeNameInput = (name: any) => {
     setNodeName(name);
   };
