@@ -19,7 +19,7 @@ import { StartPortModel } from "./Components/StartNode/StartPortModel";
 import { EndNodeFactory } from "./Components/EndNode/EndNodeFactory";
 import { EndPortModel } from "./Components/EndNode/EndPortModel";
 import { EndNodeModel } from "./Components/EndNode/EndNodeModel";
-import Editing from "./Components/Editing";
+import Editing from "./Components/EditSection/Editing";
 export const GridContainer = styled.div<{ color: string; background: string }>`
   height: 60vh;
   background-color: ${(p) => p.background};

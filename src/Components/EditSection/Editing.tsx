@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
-import ButtonBar from "./ButtonBar";
-import DropDown from "./DropDown";
-import GetNodeNames from "./Utility/GetNodeNames";
+import ButtonBar from "../ButtonBar";
+import DropDown from "./NodeDropdown";
+import GetNodeNames from "../Utility/GetNodeNames";
 
 export const InputArea = styled.div`
   padding: 0px 2px;
@@ -12,16 +12,20 @@ export const InputNames = styled.p`
 margin: 0px;
 padding 0px;
 `;
-
+//TODO: Pass selection for in and out ports addition and deletion
 const Editing = (props) => {
   const { model, engine } = props;
   const [nodeName, setNodeName] = useState("None selected");
   const [portName, setPortName] = useState("");
+  const [portOption, setPortOption] = useState("In");
   const handleNodeNameSelection = (name: any) => {
     setNodeName(name);
   };
   const handlePortNameInput = (event: { target: { value: string } }) => {
     setPortName(event.target.value);
+  };
+  const handlePortOptionChange = (event) => {
+    setPortOption(event.target.value);
   };
   return (
     <React.Fragment>
@@ -31,7 +35,7 @@ const Editing = (props) => {
         selectedNodeName={nodeName}
         portInput={portName}
       />
-
+      <h3>Edit Nodes</h3>
       <DropDown
         nodeNames={GetNodeNames(model)}
         currentSelected={nodeName}
@@ -49,6 +53,28 @@ const Editing = (props) => {
             />
           </label>
         </InputArea>
+        <div className="radio">
+          <label>
+            <input
+              type="radio"
+              value="In"
+              checked={portOption === "In"}
+              onChange={handlePortOptionChange}
+            />
+            In port
+          </label>
+        </div>
+        <div className="radio">
+          <label>
+            <input
+              type="radio"
+              value="Out"
+              checked={portOption === "Out"}
+              onChange={handlePortOptionChange}
+            />
+            Out port
+          </label>
+        </div>
       </form>
     </React.Fragment>
   );

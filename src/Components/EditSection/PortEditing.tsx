@@ -5,7 +5,7 @@ import {
 } from "@projectstorm/react-diagrams";
 import _ from "lodash";
 
-//TODO: Stop the user adding the same name twice otherwise delete will not work
+//TODO: Add selection logic for in and out ports
 export function addPorts(
   model: DiagramModel,
   engine: DiagramEngine,
@@ -24,7 +24,7 @@ export function addPorts(
   }
   engine.repaintCanvas();
 }
-//TODO: Make this work with specific selected ports (loop)
+//TODO: Remove any links to selected ports
 export function deletePorts(
   model: DiagramModel,
   engine: DiagramEngine,
@@ -37,9 +37,12 @@ export function deletePorts(
   for (let node of nodes) {
     if (node.getOptions().name === nodeName) {
       let ports = node.getInPorts();
-      if (ports.length !== 0) {
-        node.removePort(ports[ports.length - 1]);
-      }
+      ports.forEach(function (port) {
+        if (port.getName() === portInput) {
+          console.log("Found");
+          node.removePort(port);
+        }
+      });
     }
   }
   engine.repaintCanvas();

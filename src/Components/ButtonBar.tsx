@@ -1,5 +1,5 @@
 import React from "react";
-import { addPorts, deletePorts } from "./Utility/PortEditing";
+import { addPorts, deletePorts } from "./EditSection/PortEditing";
 import serializeModel from "./Utility/SerializeModel";
 import deserializeJSONModel from "./Utility/DeserializeJSONModel";
 
