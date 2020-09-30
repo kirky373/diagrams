@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ButtonBar from "../ButtonBar";
 import DropDown from "./NodeDropdown";
 import GetNodeNames from "../Utility/GetNodeNames";
+import { IN, OUT } from "../../Types";
 
 export const InputArea = styled.div`
   padding: 0px 2px;
@@ -16,10 +17,9 @@ export const PortButton = styled.div`
   display: inline;
   padding-right: 10px;
 `;
-//TODO: Pass selection for in and out ports addition and deletion
 const Editing = (props) => {
   const { model, engine } = props;
-  const [nodeName, setNodeName] = useState("None selected");
+  const [nodeName, setNodeName] = useState();
   const [portName, setPortName] = useState("");
   const [portOption, setPortOption] = useState("In");
   const handleNodeNameSelection = (name: any) => {
@@ -38,6 +38,7 @@ const Editing = (props) => {
         engine={engine}
         selectedNodeName={nodeName}
         portInput={portName}
+        portOption={portOption}
       />
       <h3>Edit Nodes</h3>
       <DropDown
@@ -61,8 +62,8 @@ const Editing = (props) => {
           <label>
             <input
               type="radio"
-              value="In"
-              checked={portOption === "In"}
+              value={IN}
+              checked={portOption === IN}
               onChange={handlePortOptionChange}
             />
             In port
@@ -72,8 +73,8 @@ const Editing = (props) => {
           <label>
             <input
               type="radio"
-              value="Out"
-              checked={portOption === "Out"}
+              value={OUT}
+              checked={portOption === OUT}
               onChange={handlePortOptionChange}
             />
             Out port

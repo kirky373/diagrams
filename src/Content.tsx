@@ -187,7 +187,7 @@ export default class diagram extends React.Component {
                     endNode.setPosition(x, y);
                     break;
                   default:
-                    node = new DefaultNodeModel("Error node", colour.custom);
+                    node = new DefaultNodeModel("Error node", colour.error);
                 }
 
                 model.addAll(node, customNode, startNode, endNode);
