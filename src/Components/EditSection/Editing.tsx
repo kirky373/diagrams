@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import ButtonBar from "../ButtonBar";
 import DropDown from "./NodeDropdown";
-import GetNodeNames from "../Utility/GetNodeNames";
-import { IN, OUT } from "../../Types";
+import { IN, OUT, RADIO, TEXT } from "../../Types";
 
 export const InputArea = styled.div`
   padding: 0px 2px;
@@ -20,10 +19,13 @@ export const PortButton = styled.div`
 const Editing = (props) => {
   const { model, engine } = props;
   const [nodeName, setNodeName] = useState();
+  const [newNodeName, setNewNodeName] = useState();
+  const [nodeID, setNodeID] = useState();
   const [portName, setPortName] = useState("");
-  const [portOption, setPortOption] = useState("In");
-  const handleNodeNameSelection = (name: any) => {
-    setNodeName(name);
+  const [portOption, setPortOption] = useState(IN);
+  const handleNodeNameSelection = (node) => {
+    setNodeID(node[0]);
+    setNodeName(node[1]);
   };
   const handlePortNameInput = (event: { target: { value: string } }) => {
     setPortName(event.target.value);
@@ -31,20 +33,27 @@ const Editing = (props) => {
   const handlePortOptionChange = (event) => {
     setPortOption(event.target.value);
   };
+
+  const handleNewNodeNameInput = (event) => {
+    setNewNodeName(event.target.value);
+  };
+
   return (
     <React.Fragment>
       <ButtonBar
         model={model}
         engine={engine}
-        selectedNodeName={nodeName}
+        selectedNodeName={nodeID}
+        newNodeName={newNodeName}
         portInput={portName}
         portOption={portOption}
+        setNodeName={setNodeName}
       />
       <h3>Edit Nodes</h3>
       <DropDown
-        nodeNames={GetNodeNames(model)}
         currentSelected={nodeName}
         handleSelection={handleNodeNameSelection}
+        model={model}
       />
 
       <form>
@@ -52,16 +61,24 @@ const Editing = (props) => {
           <label>
             <InputNames>Port name: </InputNames>
             <input
-              type="text"
+              type={TEXT}
               defaultValue={portName}
               onChange={handlePortNameInput}
+            />
+          </label>
+          <label>
+            <InputNames>Change node name: </InputNames>
+            <input
+              type={TEXT}
+              defaultValue={nodeName}
+              onChange={handleNewNodeNameInput}
             />
           </label>
         </InputArea>
         <PortButton>
           <label>
             <input
-              type="radio"
+              type={RADIO}
               value={IN}
               checked={portOption === IN}
               onChange={handlePortOptionChange}
@@ -72,7 +89,7 @@ const Editing = (props) => {
         <PortButton>
           <label>
             <input
-              type="radio"
+              type={RADIO}
               value={OUT}
               checked={portOption === OUT}
               onChange={handlePortOptionChange}

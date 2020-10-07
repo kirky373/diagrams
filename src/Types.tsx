@@ -5,6 +5,8 @@ export const CUSTOM = "Custom";
 export const TEST = "Test";
 export const START = "Start";
 export const END = "End";
+export const RADIO = "radio";
+export const TEXT = "text";
 
 export const colour = {
   in: "rgb(192,255,0)",

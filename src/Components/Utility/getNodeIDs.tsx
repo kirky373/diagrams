@@ -6,6 +6,7 @@ export default (model) => {
     model.getNodes()
   ) as DefaultNodeModel[];
   let IDs = [];
+
   nodes.forEach(function (node) {
     IDs.push(node.getOptions().id);
   });

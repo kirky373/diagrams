@@ -118,7 +118,7 @@ function checkIfOutOfBoundsY(y: number) {
   return y;
 }
 
-export default class diagram extends React.Component {
+export default class Diagram extends React.Component {
   render() {
     return (
       <React.Fragment>

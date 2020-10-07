@@ -5,7 +5,15 @@ import deserializeJSONModel from "./Utility/DeserializeJSONModel";
 import { renameNode } from "./EditSection/NodeNameEditing";
 
 const ButtonBar = (props) => {
-  const { model, engine, selectedNodeName, portInput, portOption } = props;
+  const {
+    model,
+    engine,
+    selectedNodeName,
+    newNodeName,
+    portInput,
+    portOption,
+    setNodeName,
+  } = props;
   return (
     <React.Fragment>
       <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
@@ -21,7 +29,11 @@ const ButtonBar = (props) => {
       >
         Delete a port to a node
       </button>
-      <button onClick={() => renameNode(model, engine, selectedNodeName)}>
+      <button
+        onClick={() =>
+          renameNode(model, engine, selectedNodeName, newNodeName, setNodeName)
+        }
+      >
         Rename node
       </button>
       <button onClick={() => serializeModel(model)}>
