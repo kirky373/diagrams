@@ -25,7 +25,9 @@ const ButtonBar = (props) => {
         Add a port to a node
       </button>
       <button
-        onClick={() => deletePorts(model, engine, selectedNodeID, portInput)}
+        onClick={() =>
+          deletePorts(model, engine, selectedNodeID, portInput, portOption)
+        }
       >
         Delete a port to a node
       </button>

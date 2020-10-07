@@ -28,24 +28,36 @@ export function addPorts(
   }
   engine.repaintCanvas();
 }
-//TODO: Remove any links to selected ports
+
 export function deletePorts(
   model: DiagramModel,
   engine: DiagramEngine,
   selectedNodeID: String,
-  portInput: String
+  portInput: String,
+  portOption: String
 ) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
     if (node.getOptions().id === selectedNodeID) {
-      let ports = node.getInPorts();
-      ports.forEach(function (port) {
-        if (port.getName() === portInput) {
-          node.removePort(port);
-        }
-      });
+      if (portOption === IN) {
+        let ports = node.getInPorts();
+        ports.forEach(function (port) {
+          if (port.getName() === portInput) {
+            //TODO: Remove any links to selected ports
+            node.removePort(port);
+          }
+        });
+      } else {
+        let ports = node.getOutPorts();
+        ports.forEach(function (port) {
+          if (port.getName() === portInput) {
+            //TODO: Remove any links to selected ports
+            node.removePort(port);
+          }
+        });
+      }
     }
   }
   engine.repaintCanvas();
