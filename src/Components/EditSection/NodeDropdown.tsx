@@ -4,11 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import _ from "lodash";
 const DropDown = (props) => {
-  const { currentSelected, handleSelection, model, engine } = props;
+  const { currentSelected, handleSelection, model } = props;
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
-  let data = [,];
+  let data = [];
   for (let node of nodes) {
     if (node.getOptions().name !== undefined) {
       data.push([node.getOptions().id, node.getOptions().name]);

@@ -9,19 +9,20 @@ import { IN } from "../../Types";
 export function addPorts(
   model: DiagramModel,
   engine: DiagramEngine,
-  selectedNodeName: String,
+  selectedNodeID: String,
   portInput: String,
   portOption: String
 ) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
+
   for (let node of nodes) {
-    if (node.getOptions().name === selectedNodeName && portInput !== "") {
+    if (node.getOptions().id === selectedNodeID && portInput !== "") {
       if (portOption === IN) {
-        node.addInPort(`${portInput}-in`, false);
+        node.addInPort(`${portInput}`, false);
       } else {
-        node.addOutPort(`${portInput}-out`, false);
+        node.addOutPort(`${portInput}`, false);
       }
     }
   }
@@ -31,14 +32,14 @@ export function addPorts(
 export function deletePorts(
   model: DiagramModel,
   engine: DiagramEngine,
-  nodeName: String,
+  selectedNodeID: String,
   portInput: String
 ) {
   const nodes: DefaultNodeModel[] = _.values(
     model.getNodes()
   ) as DefaultNodeModel[];
   for (let node of nodes) {
-    if (node.getOptions().name === nodeName) {
+    if (node.getOptions().id === selectedNodeID) {
       let ports = node.getInPorts();
       ports.forEach(function (port) {
         if (port.getName() === portInput) {

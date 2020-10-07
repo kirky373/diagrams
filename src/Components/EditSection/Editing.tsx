@@ -43,7 +43,7 @@ const Editing = (props) => {
       <ButtonBar
         model={model}
         engine={engine}
-        selectedNodeName={nodeID}
+        selectedNodeID={nodeID}
         newNodeName={newNodeName}
         portInput={portName}
         portOption={portOption}

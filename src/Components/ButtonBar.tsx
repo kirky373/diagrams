@@ -8,7 +8,7 @@ const ButtonBar = (props) => {
   const {
     model,
     engine,
-    selectedNodeName,
+    selectedNodeID,
     newNodeName,
     portInput,
     portOption,
@@ -19,19 +19,19 @@ const ButtonBar = (props) => {
       <button onClick={() => engine.zoomToFitNodes(20)}>Zoom to fit</button>
       <button
         onClick={() =>
-          addPorts(model, engine, selectedNodeName, portInput, portOption)
+          addPorts(model, engine, selectedNodeID, portInput, portOption)
         }
       >
         Add a port to a node
       </button>
       <button
-        onClick={() => deletePorts(model, engine, selectedNodeName, portInput)}
+        onClick={() => deletePorts(model, engine, selectedNodeID, portInput)}
       >
         Delete a port to a node
       </button>
       <button
         onClick={() =>
-          renameNode(model, engine, selectedNodeName, newNodeName, setNodeName)
+          renameNode(model, engine, selectedNodeID, newNodeName, setNodeName)
         }
       >
         Rename node
